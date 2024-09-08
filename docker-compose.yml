@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    restart: always
+    volumes:
+      - .:/web_scraper
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
